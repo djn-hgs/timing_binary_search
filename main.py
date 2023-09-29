@@ -49,16 +49,36 @@ def binary_search_in_place(the_list, target_item, left, right):
         else:
             raise Exception('We shouldn\'t be here')
 
+# Bubble sort
+
+def bubble_sort(the_list, target_item):
+    still_sorting = True
+
+    extent = len(the_list) - 1
+
+    while still_sorting:
+        still_sorting = False
+
+        for i in range(0, extent):
+
+            if the_list[i] > the_list[i + 1]:
+                the_list[i], the_list[i + 1] = the_list[i + 1], the_list[i]
+
+                still_sorting = True
+
+        extent -= 1
+
+    return the_list
 
 # Code snippets for timeit
 
 SETUP_CODE = '''
-from __main__ import binary_search, my_list, n, target
+from __main__ import bubble_sort, my_list, n, target
 import random
 '''
 
 TEST_CODE = '''
-binary_search(my_list, target)
+bubble_sort(my_list, target)
 '''
 
 # Enable interactive graphing and create axes
@@ -78,6 +98,7 @@ y2 = []
 # Add plots to axes
 
 sc = ax.scatter(x, y)
+
 plt.sca(ax)
 lp = plt.plot(x2, y2)
 
@@ -103,7 +124,7 @@ while True:
     for _ in range(size):
         # A list to sort and a target to find
 
-        my_list = sorted([random.randint(1, n) for _ in range(n)])
+        my_list = [random.randint(1, n) for _ in range(n)]
         target = random.randint(1, n)
 
         # Time the sort
@@ -114,6 +135,7 @@ while True:
                                   number=4
                                   )
 
+        #print(my_list)
         # Add time to our list
 
         times.append(next_time)
